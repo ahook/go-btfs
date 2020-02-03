@@ -2,6 +2,7 @@ package remote
 
 import (
 	"context"
+	ma "github.com/multiformats/go-multiaddr"
 
 	"github.com/TRON-US/go-btfs/core"
 
@@ -34,5 +35,17 @@ func FindPeer(ctx context.Context, n *core.IpfsNode, pid string) (*peer.AddrInfo
 		log.Error("error finding peer:", pinfo, err)
 		return nil, err
 	}
+
+	//TODO: remove this when we fix auto-relay
+	addr, err := ma.NewMultiaddr("/p2p-circuit/btfs/" + id.String())
+	if err != nil {
+		return nil, err
+	}
+	for _, a := range pinfo.Addrs {
+		if a.Equal(addr) {
+			return &pinfo, nil
+		}
+	}
+	pinfo.Addrs = append(pinfo.Addrs, addr)
 	return &pinfo, nil
 }
