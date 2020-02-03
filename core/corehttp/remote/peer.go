@@ -2,7 +2,6 @@ package remote
 
 import (
 	"context"
-	ma "github.com/multiformats/go-multiaddr"
 
 	"github.com/TRON-US/go-btfs/core"
 
@@ -10,6 +9,7 @@ import (
 	cmdsHttp "github.com/TRON-US/go-btfs-cmds/http"
 
 	"github.com/libp2p/go-libp2p-core/peer"
+	ma "github.com/multiformats/go-multiaddr"
 )
 
 // GetStreamRequestRemotePeerID checks to see if current request is part of a streamedd
